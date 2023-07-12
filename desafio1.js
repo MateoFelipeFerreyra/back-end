@@ -1,23 +1,94 @@
+import fs from 'fs'
 class ProductManager {
-
-    constructor() {
-        this.products = [];
+    #format
+    #path
+    #error
+    constructor(path) {
+        this.#path = path
+        if (!fs.existsSync(this.#path)) {
+            fs.writeFileSync(this.#path, '[{"id":0}]')
+        }
+        this.#error
+        this.#format = 'utf-8'
     }
 
-    addProduct(nombre, descripcion, precio, img, code, stock) {
-        const found = this.products.find(item => item.code == code)
-        if (found) {
-            console.log("el codigo ya existe")
+    getProducts = async () => {
+        return JSON.parse(await fs.promises.readFile(this.#path, this.#format))
+    }
+
+    getElementById = async (id) => {
+        const products = await this.getProducts()
+        return products.find(item => item.id === id)
+    }
+
+    updateProduct = async (id, title, description, code, price, status = true, stock, category, thumbnails) => {
+        const products = await this.getProducts()
+        const objeto = products.find(item => item.id === id)
+        const indice = products.indexOf(objeto)
+        if (indice == -1) {
+            console.log("No se encontro del objeto")
         }
         else {
-            const id = this.products.length
-            this.products.push({ id, nombre, descripcion, precio, img, code, stock })
+            id = objeto.id
+            if (this.#isValid(products, title, description, code, price, stock, category) != undefined)
+                return this.#isValid(products, title, description, code, price, stock, category)
+
+            products[indice] = ({ id, title, description, code, price, status, stock, category, thumbnails })
+            await fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+        }
+
+    }
+    deleteProduct = async (id) => {
+        const products = await this.getProducts()
+        const objeto = products.find(item => item.id === id)
+        const indice = products.indexOf(objeto)
+
+        if (indice == -1) {
+            return false
+        }
+        else {
+            products.splice(indice, 1)
+            await fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+
+        }
+    }
+
+    async addProduct(title, description, code, price, status = true, stock, category, thumbnails = []) {
+        const products = await this.getProducts()
+        if (this.#isValid(products, title, description, code, price, stock, category) != undefined)
+            return (this.#isValid(products, title, description, code, price, stock, category))
+
+        products.push({
+            id: this.#generateCode(products), title, description, code, price, status, stock, category, thumbnails
+        })
+
+        await fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+        return false
+    }
+    #generateCode = (products) => {
+
+        return (products.length === 0) ?
+            1 :
+            products[products.length - 1].id + 1
+    }
+
+    #isValid = (products, title, description, code, price, stock, category) => {
+        if (!title || !description || !code || !price || !stock || !category) {
+            return `[${title}]: campos incompletos`
+        } else {
+            const found = products.find(item => item.code === code)
+            if (found) return `[${title}]: el codigo ya existe`
         }
     }
 }
 
-const Manager = new ProductManager()
-Manager.addProduct("lapicera", "pepe", 3, "url", "hola1232", 20)
-Manager.addProduct("lapicera", "pepe", 3, "url", "chua1232", 20)
+const Manager = new ProductManager('./products.json')
 
-console.log(Manager.products)
+
+
+
+
+
+
+
+
