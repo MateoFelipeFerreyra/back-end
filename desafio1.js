@@ -1,4 +1,5 @@
 import fs from 'fs'
+
 class ProductManager {
     #format
     #path
@@ -82,7 +83,9 @@ class ProductManager {
     }
 }
 
-const Manager = new ProductManager('./products.json')
+const manager = new ProductManager('./products.json')
+console.log(manager.addProduct("dsfdsf", "dfsdf negro", 13, "xxxxxxx", 40, 10))
+
 
 
 
