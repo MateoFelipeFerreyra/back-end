@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "desafio1.js",
+  "type": "module",
   "scripts": {
     "start": "desafio1.js"
   },
