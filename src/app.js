@@ -22,7 +22,7 @@ class ProductManager {
         return products.find(item => item.id === id)
     }
 
-    updateProduct = async (id, title, description, code, price, status = true, stock, category, thumbnails) => {
+    updateProduct = async (id, title, description, code, price, stock, category) => {
         const products = await this.getProducts()
         const objeto = products.find(item => item.id === id)
         const indice = products.indexOf(objeto)
@@ -34,7 +34,7 @@ class ProductManager {
             if (this.#isValid(products, title, description, code, price, stock, category) != undefined)
                 return this.#isValid(products, title, description, code, price, stock, category)
 
-            products[indice] = ({ id, title, description, code, price, status, stock, category, thumbnails })
+            products[indice] = ({ id, title, description, code, price, stock, category })
             await fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
         }
 
@@ -54,13 +54,13 @@ class ProductManager {
         }
     }
 
-    async addProduct(title, description, code, price, status = true, stock, category, thumbnails = []) {
+    async addProduct(title, description, code, price, stock, category) {
         const products = await this.getProducts()
         if (this.#isValid(products, title, description, code, price, stock, category) === undefined)
             return (this.#isValid(products, title, description, code, price, stock, category))
 
         products.push({
-            id: this.#generateCode(products), title, description, code, price, status, stock, category, thumbnails
+            id: this.#generateCode(products), title, description, code, price, stock, category
             
         })
         console.log(products)
@@ -86,18 +86,4 @@ class ProductManager {
 }
 
 const manager = new ProductManager('./products.json')
-manager.addProduct("dsfdsf", "dfsdf negro", 13, "xxxxxxx", 40, 10)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+manager.addProduct("pepe", "sapo pepe verde", 13, "xxxxxxx", 40, 10)

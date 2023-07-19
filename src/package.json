@@ -1,11 +1,11 @@
 {
-  "name": "desafios",
+  "name": "src",
   "version": "1.0.0",
   "description": "",
-  "main": "desafio1.js",
+  "main": "./src/app.js",
   "type": "module",
   "scripts": {
-    "start": "desafio1.js"
+    "start": "app.js"
   },
   "keywords": [],
   "author": "",
