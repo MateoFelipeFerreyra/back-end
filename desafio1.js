@@ -27,7 +27,7 @@ class ProductManager {
         const objeto = products.find(item => item.id === id)
         const indice = products.indexOf(objeto)
         if (indice == -1) {
-            console.log("No se encontro del objeto")
+            console.log("No se encontro el prodcuto")
         }
         else {
             id = objeto.id
@@ -56,14 +56,16 @@ class ProductManager {
 
     async addProduct(title, description, code, price, status = true, stock, category, thumbnails = []) {
         const products = await this.getProducts()
-        if (this.#isValid(products, title, description, code, price, stock, category) != undefined)
+        if (this.#isValid(products, title, description, code, price, stock, category) === undefined)
             return (this.#isValid(products, title, description, code, price, stock, category))
 
         products.push({
             id: this.#generateCode(products), title, description, code, price, status, stock, category, thumbnails
+            
         })
+        console.log(products)
 
-        await fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+        fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
         return false
     }
     #generateCode = (products) => {
@@ -84,7 +86,11 @@ class ProductManager {
 }
 
 const manager = new ProductManager('./products.json')
-console.log(manager.addProduct("dsfdsf", "dfsdf negro", 13, "xxxxxxx", 40, 10))
+manager.addProduct("dsfdsf", "dfsdf negro", 13, "xxxxxxx", 40, 10)
+
+
+
+
 
 
 
