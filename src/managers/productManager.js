@@ -86,5 +86,6 @@ class ProductManager {
 }
 
 const manager = new ProductManager('./products.json')
+manager.addProduct("pepe", "sapo pepe verde", 13, "xxxxxxx", 40, 10)
 
-export {manager}
+// export {manager}
