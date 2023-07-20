@@ -1,1 +1,38 @@
-[]
+[
+	{
+		"id": 1,
+		"title": "pepe",
+		"description": "sapo pepe verde",
+		"code": 13,
+		"price": "xxxxx",
+		"stock": 40,
+		"category": 10
+	},
+	{
+		"id": 2,
+		"title": "jose",
+		"description": "sapo pepe verde",
+		"code": 10,
+		"price": "xxxxx",
+		"stock": 40,
+		"category": 10
+	},
+	{
+		"id": 3,
+		"title": "jose",
+		"description": "sapo pepe verde",
+		"code": 12,
+		"price": "xxxxx",
+		"stock": 40,
+		"category": 10
+	},
+	{
+		"id": 4,
+		"title": "jose",
+		"description": "sapo pepe verde",
+		"code": 9,
+		"price": "xxxxx",
+		"stock": 40,
+		"category": 10
+	}
+]

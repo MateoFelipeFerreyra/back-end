@@ -56,8 +56,8 @@ class ProductManager {
 
     async addProduct(title, description, code, price, stock, category) {
         const products = await this.getProducts()
-        if (this.#isValid(products, title, description, code, price, stock, category) === undefined)
-            return (this.#isValid(products, title, description, code, price, stock, category))
+        if (this.#isValid(products, title, description, code, price, stock, category) === false)
+            return false
 
         products.push({
             id: this.#generateCode(products), title, description, code, price, stock, category
@@ -77,15 +77,20 @@ class ProductManager {
 
     #isValid = (products, title, description, code, price, stock, category) => {
         if (!title || !description || !code || !price || !stock || !category) {
-            return `[${title}]: campos incompletos`
+            console.log(`[${title}]: campos incompletos`)
+            return false 
         } else {
             const found = products.find(item => item.code === code)
-            if (found) return `[${title}]: el codigo ya existe`
+            if (found){
+                console.log(`[${title}]: el codigo ya existe`)
+                return false
+            }
+            return true
         }
     }
 }
 
 const manager = new ProductManager('./products.json')
-manager.addProduct("pepe", "sapo pepe verde", 13, "xxxxxxx", 40, 10)
+manager.addProduct("jose", "sapo pepe verde", 9, "xxxxx", 40, 10)
 
-// export {manager}
+export {manager}
