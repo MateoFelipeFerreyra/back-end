@@ -1,0 +1,11 @@
+[
+	{
+		"id": 1,
+		"title": "mateo",
+		"description": "sapo pepe verde",
+		"code": 12,
+		"price": "xxxxx",
+		"stock": 40,
+		"category": 10
+	}
+]

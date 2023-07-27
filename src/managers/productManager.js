@@ -90,7 +90,7 @@ class ProductManager {
     }
 }
 
-const manager = new ProductManager('./products.json')
-manager.addProduct("jose", "sapo pepe verde", 9, "xxxxx", 40, 10)
+const manager = new ProductManager('src/data/products.json')
+manager.addProduct("mateo", "sapo pepe verde", 12, "xxxxx", 40, 10)
 
 export {manager}
