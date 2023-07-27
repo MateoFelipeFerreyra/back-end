@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { manager } from '../managers/productManager'
+import { manager } from '../managers/productManager.js'
+
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get ('/', async (req, res) =>{
     const limit = req.query.limit
     console.log(limit)
     res.send((await manager.getProducts()).slice(0, limit))
