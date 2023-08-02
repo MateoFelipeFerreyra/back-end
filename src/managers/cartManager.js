@@ -38,7 +38,6 @@ class cartManager{
             else {
                 cart["products"].push({ product: idProduct, quantity: 1 })
             }
-
             carts[indice] = cart
             await fs.promises.writeFile(this.#path, JSON.stringify(carts, null, '\t'))
         }
